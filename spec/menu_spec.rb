@@ -1,22 +1,22 @@
 require 'menu'
 
 describe Menu do
+ it 'lists names of dishes' do
+   menu = Menu.new
+   expect(menu.dishes[0][:name]).to eq 'Margherita'
+   expect(menu.dishes[1][:name]).to eq 'Quattro Formaggi'
+ end
 
-  let(:menu) { described_class.new }
-  let(:dish) { double :dish }
-  let(:add_dish) { double :add_dish }
-  let(:order_list) { double :order_list }
-  let(:restaurant_app) { { dish: dish, add_dish: add_dish, order_list: order_list } }
-
-  it '#print list of dishes and prices' do
-    expect(menu.print_menu).to eq menu.list_of_dishes
+  it 'lists prices of dishes' do
+    menu = Menu.new
+    expect(menu.dishes[0][:price]).to eq 10.50
+    expect(menu.dishes[1][:price]).to eq 9.20
   end
 
-  it 'menu respond to #select_food' do
-    expect(menu).to respond_to(:select_food)
-  end
-
-  it 'add selected dish on restaurant app' do
-    expect(menu.select_food).to eq p restaurant_app.add_dish("Margherita")
+  it 'finds dish in menu' do
+    menu = Menu.new
+    dish = menu.find_by_name("Margherita")
+    expect(dish[:name]).to eq "Margherita"
+    expect(dish[:price]).to eq 10.50
   end
 end
